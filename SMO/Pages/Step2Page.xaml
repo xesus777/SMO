@@ -1,0 +1,120 @@
+﻿<Page x:Class="SMO.Pages.Step2Page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SMO.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Step2Page">
+
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="500">
+        <StackPanel Margin="10">
+            <TextBlock Text="Параметры модели СМО" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+            <TextBlock Text="Модель СМО:" FontWeight="SemiBold"/>
+            <ComboBox Name="CbModelType" Margin="0,5,0,15" Height="30" SelectionChanged="ModelConfiguration_Changed">
+                <ComboBoxItem Content="С отказами (потерями) в обслуживании"/>
+                <ComboBoxItem Content="С ограниченной длиной очереди"/>
+                <ComboBoxItem Content="С неограниченной очередью"/>
+            </ComboBox>
+
+            <StackPanel Name="PanelChannelsContainer" Margin="0,0,0,10">
+                <StackPanel Name="PanelManualChannels" Margin="0,0,0,5">
+                    <TextBlock Text="Количество каналов (обслуживающих устройств), n:"/>
+                    <TextBox Name="TxtChannels" Height="25" Margin="0,5,0,0"/>
+                </StackPanel>
+
+                <Grid Margin="0,5,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox Name="ChbAutoChannels" 
+                              Grid.Column="0" 
+                              Content="Найти количество каналов для обеспечения работоспособности с P ≥" 
+                              VerticalAlignment="Center" 
+                              Checked="ChbAutoChannels_Changed" 
+                              Unchecked="ChbAutoChannels_Changed" />
+                    <TextBox Name="TxtTargetP" 
+                             Grid.Column="1" 
+                             Width="60" 
+                             Height="25" 
+                             Margin="10,0,0,0" 
+                             Text="0.97" 
+                             HorizontalContentAlignment="Center" />
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Name="PanelQueue" Margin="0,0,0,10">
+                <TextBlock Name="LblQueueTitle" Text="Длина очереди, m:"/>
+                <TextBox Name="TxtQueue" Height="25" Margin="0,5,0,0"/>
+            </StackPanel>
+
+            <TextBlock Text="Интенсивность потока заявок, λ:" Margin="0,5,0,0"/>
+            <Grid Margin="0,5,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Name="TxtLambda" Grid.Column="0" Height="25"/>
+                <TextBlock Text="заявок в" Grid.Column="1" VerticalAlignment="Center" Margin="10,0"/>
+                <ComboBox Name="CbLambdaUnit" Grid.Column="2" Height="25" SelectedIndex="0">
+                    <ComboBoxItem Content="мин"/>
+                    <ComboBoxItem Content="час"/>
+                    <ComboBoxItem Content="сут"/>
+                </ComboBox>
+            </Grid>
+
+            <TextBlock Text="Параметры обслуживания:" Margin="0,5,0,0" FontWeight="SemiBold"/>
+            <Grid Margin="0,5,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Интенсивность, μ:" FontSize="11" Foreground="Gray"/>
+                    <Grid Margin="0,2,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Name="TxtMu" Grid.Column="0" Height="25" TextChanged="TxtMu_TextChanged"/>
+                        <ComboBox Name="CbMuUnit" Grid.Column="1" Height="25" Margin="5,0,0,0" SelectedIndex="0" SelectionChanged="CbMuUnit_SelectionChanged">
+                            <ComboBoxItem Content="мин"/>
+                            <ComboBoxItem Content="час"/>
+                            <ComboBoxItem Content="сут"/>
+                        </ComboBox>
+                    </Grid>
+                </StackPanel>
+
+                <TextBlock Text="или" Grid.Column="1" VerticalAlignment="Bottom" Margin="8,0,8,5" FontStyle="Italic"/>
+
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="Время обслуживания, t_обс:" FontSize="11" Foreground="Gray"/>
+                    <Grid Margin="0,2,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Name="TxtTobs" Grid.Column="0" Height="25" TextChanged="TxtTobs_TextChanged"/>
+                        <TextBlock Name="LblTobsUnit" Text="мин" Grid.Column="1" VerticalAlignment="Center" Margin="8,0,0,0"/>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+
+            <Grid Margin="0,15,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Назад" Click="BackButton_Click" Grid.Column="0" Margin="0,0,5,0" Height="35"/>
+                <Button Content="Рассчитать" Click="CalculateButton_Click" Grid.Column="1" Margin="5,0,0,0" Height="35" Background="#4CAF50" Foreground="White" FontWeight="Bold"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+
+</Page>
